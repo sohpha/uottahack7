@@ -1,0 +1,5 @@
+[mqtt]
+host=YOUR_MQTT_HOST
+port=8883
+username=YOUR_MQTT_USERNAME
+password=YOUR_MQTT_PASSWORD

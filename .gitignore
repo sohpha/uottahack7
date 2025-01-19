@@ -1,0 +1,4 @@
+.env
+config.properties
+.vscode
+node_modules
