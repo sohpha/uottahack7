@@ -50,7 +50,7 @@ def establish_solace_connection():
 # ---------------------------------
 # 1) Initialize Groq client
 # ---------------------------------
-client = Groq(api_key=GROQ_API_KEY)
+groqClient = Groq(api_key=GROQ_API_KEY)
 
 # ---------------------------------
 # 2) Fire-like color detection
@@ -94,7 +94,7 @@ def encode_frame_to_base64(frame):
 # 4) Main script logic
 # ---------------------------------
 def main():
-    client = establish_solace_connection()
+    client2 = establish_solace_connection()
     topic = 'userTopic'
 
     # Open webcam (0 for default, or 1,2... for other cams)
@@ -146,7 +146,7 @@ def main():
                 ]
 
                 try:
-                    response = client.chat.completions.create(
+                    response = groqClient.chat.completions.create(
                         model="llama-3.2-11b-vision-preview",
                         messages=messages
                     )
@@ -175,7 +175,7 @@ def main():
                     "message": "SPARKVISION ALERT: Fire Detected!",
                     "timestamp": datetime.now().isoformat(),
                 }
-                client.publish(topic, json.dumps(alert_data))
+                client2.publish(topic, json.dumps(alert_data))
                 print(f"Published: {alert_data}")
                 fire_detected_frames = 0
 

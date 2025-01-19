@@ -6,13 +6,13 @@ const app = express();
 
 global.WebSocket = require('ws');
 
-function sendSMSAlert(payload) {
+function sendSMSAlert() {
     const accountSid = process.env.TWILIO_SID;
     const authToken = process.env.TWILIO_AUTH_TOKEN;
     const twilioClient = require('twilio')(accountSid, authToken);
     twilioClient.messages
         .create({
-            body: payload,
+            body: "SparkVision: Fire Detected",
             from: process.env.TWILIO_PHONE_NUMBER,
             to: process.env.DEST_PHONE_NUMBER
         })
@@ -47,7 +47,7 @@ function connect() {
 
 function onMessageArrived(message) {
   console.log("onMessageArrived: "+message.payloadString);
-  //sendSMSAlert(message.payloadString.message); uncomment at end
+  sendSMSAlert(/*message.payloadString.message*/); //uncomment at end
 }
 
 connect();
